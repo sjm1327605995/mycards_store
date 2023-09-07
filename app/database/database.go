@@ -8,7 +8,9 @@ import (
 	"gorm.io/gorm/logger"
 )
 
-var db *gorm.DB
+var (
+	db *gorm.DB
+)
 
 func GetDB() *gorm.DB {
 	return db
@@ -22,8 +24,8 @@ func InitDB() {
 		Logger:                                   logger.Default.LogMode(logger.Info),
 		DisableForeignKeyConstraintWhenMigrating: true,
 	})
-
 	if err != nil {
 		panic(fmt.Errorf("数据库连接失败,%s", err.Error()))
 	}
+
 }

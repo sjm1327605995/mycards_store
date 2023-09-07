@@ -2,7 +2,7 @@ package router
 
 import (
 	"github.com/gin-gonic/gin"
-	"mycard_store/app/handler"
+	"github.com/sjm1327605995/mycards_store/app/handler"
 )
 
 func Router() (r *gin.Engine) {
@@ -10,7 +10,9 @@ func Router() (r *gin.Engine) {
 
 	api := e.Group("api")
 	{
-		api.GET("getCardsById", handler.GetCardsById)
+		api.POST("putDesks", handler.PutDesks)
+		api.GET("getDesksById", handler.GetDesksById)
+		api.GET("getDesksList", handler.GetDesksList)
 	}
 
 	return e

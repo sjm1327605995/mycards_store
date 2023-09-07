@@ -1,0 +1,116 @@
+definitions:
+  models.Cards:
+    properties:
+      extra:
+        items:
+          type: integer
+        type: array
+      main:
+        items:
+          type: integer
+        type: array
+      side:
+        items:
+          type: integer
+        type: array
+    type: object
+  models.Decks:
+    properties:
+      cards:
+        $ref: '#/definitions/models.Cards'
+      id:
+        example: "0"
+        type: string
+      name:
+        type: string
+      user_id:
+        type: integer
+    type: object
+  resp.SuccessResp:
+    properties:
+      data: {}
+      status:
+        type: integer
+    type: object
+info:
+  version:
+  title: "我的卡组"
+  contact: {}
+paths:
+  /api/getDesksById:
+    get:
+      consumes:
+      - application/json
+      description: 查询卡组id，获取卡组信息
+      parameters:
+      - description: id
+        in: query
+        name: data
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            allOf:
+            - $ref: '#/definitions/resp.SuccessResp'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.Decks'
+              type: object
+      summary: 查询卡组
+      tags:
+      - 卡组
+  /api/getDesksList:
+    get:
+      consumes:
+      - application/json
+      description: 查询用户的卡组列表
+      parameters:
+      - description: userId
+        in: query
+        name: data
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/resp.SuccessResp'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/models.Decks'
+                  type: array
+              type: object
+      summary: 查询卡组列表
+      tags:
+      - 卡组
+  /api/putDesks:
+    post:
+      consumes:
+      - application/json
+      description: 保存卡组，如果卡组Id没有则创建。有id则覆盖数据库这条记录
+      parameters:
+      - description: 卡组信息
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/models.Decks'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/resp.SuccessResp'
+      summary: 保存卡组
+      tags:
+      - 卡组
+swagger: "2.0"

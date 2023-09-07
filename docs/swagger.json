@@ -1,0 +1,187 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {},
+        "version": "",
+        "title": "卡组api"
+    },
+    "paths": {
+        "/api/getDesksById": {
+            "get": {
+                "description": "查询卡组id，获取卡组信息",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "卡组"
+                ],
+                "summary": "查询卡组",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "id",
+                        "name": "data",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/resp.SuccessResp"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/models.Decks"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/api/getDesksList": {
+            "get": {
+                "description": "查询用户的卡组列表",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "卡组"
+                ],
+                "summary": "查询卡组列表",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "userId",
+                        "name": "data",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/resp.SuccessResp"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/models.Decks"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/api/putDesks": {
+            "post": {
+                "description": "保存卡组，如果卡组Id没有则创建。有id则覆盖数据库这条记录",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "卡组"
+                ],
+                "summary": "保存卡组",
+                "parameters": [
+                    {
+                        "description": "卡组信息",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Decks"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/resp.SuccessResp"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "models.Cards": {
+            "type": "object",
+            "properties": {
+                "extra": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "main": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "side": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                }
+            }
+        },
+        "models.Decks": {
+            "type": "object",
+            "properties": {
+                "cards": {
+                    "$ref": "#/definitions/models.Cards"
+                },
+                "id": {
+                    "type": "string",
+                    "example": "0"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "user_id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "resp.SuccessResp": {
+            "type": "object",
+            "properties": {
+                "data": {},
+                "status": {
+                    "type": "integer"
+                }
+            }
+        }
+    }
+}

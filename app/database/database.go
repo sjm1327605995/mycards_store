@@ -18,7 +18,7 @@ func GetDB() *gorm.DB {
 
 func InitDB() {
 	var err error
-	host := viper.GetString("datasource.postgres")
+	host := viper.GetString("postgres")
 	db, err = gorm.Open(postgres.Open(host), &gorm.Config{
 		CreateBatchSize:                          1000,
 		Logger:                                   logger.Default.LogMode(logger.Info),

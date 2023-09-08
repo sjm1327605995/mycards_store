@@ -15,6 +15,38 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/api/delDesksById": {
+            "delete": {
+                "description": "根据卡组id，删除卡组",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "卡组"
+                ],
+                "summary": "删除卡组",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "id",
+                        "name": "data",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "schema": {
+                            "$ref": "#/definitions/resp.SuccessResp"
+                        }
+                    }
+                }
+            }
+        },
         "/api/getDesksById": {
             "get": {
                 "description": "查询卡组id，获取卡组信息",

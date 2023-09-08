@@ -33,10 +33,29 @@ definitions:
         type: integer
     type: object
 info:
-  version:
-  title: "我的卡组"
   contact: {}
 paths:
+  /api/delDesksById:
+    delete:
+      consumes:
+      - application/json
+      description: 根据卡组id，删除卡组
+      parameters:
+      - description: id
+        in: query
+        name: data
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/resp.SuccessResp'
+      summary: 删除卡组
+      tags:
+      - 卡组
   /api/getDesksById:
     get:
       consumes:

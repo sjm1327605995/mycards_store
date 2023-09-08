@@ -67,6 +67,31 @@ func GetDesksById(c *gin.Context) {
 	resp.Success(c, desks)
 }
 
+// DelDesksById
+// @Summary 删除卡组
+// @Schemes
+// @Description 根据卡组id，删除卡组
+// @Tags 卡组
+// @Param data  query string true "id"
+// @Accept json
+// @Produce json
+// @Success 200 {object} resp.SuccessResp "ok"
+// @Router /api/delDesksById [delete]
+func DelDesksById(c *gin.Context) {
+	desksId := c.Query("id")
+	if desksId == "" {
+		resp.Fail(c, "卡组id不存在")
+		return
+	}
+
+	err := service.CardsService.DelDesksById(cast.ToInt64(desksId))
+	if err != nil {
+		resp.Fail(c, err.Error())
+		return
+	}
+	resp.Success(c, "ok")
+}
+
 // GetDesksList
 // @Summary 查询卡组列表
 // @Schemes

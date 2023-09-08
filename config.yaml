@@ -1,1 +1,8 @@
-postgres: "host=localhost user=postgres password=postgres dbname=postgres port=5432 sslmode=disable TimeZone=Asia/Shanghai"
+#database:
+#  type: postgres
+#  port: 5432
+#  host: localhost
+#  user: postgres
+#  dbname: postgres
+#  password: postgres
+#  init: false

@@ -44,6 +44,7 @@ func InitDB() {
 	if err != nil {
 		panic(fmt.Errorf("数据库连接失败,%s", err.Error()))
 	}
+
 	if viper.GetBool("db.init") {
 		_ = db.AutoMigrate(&models.Decks{})
 	}

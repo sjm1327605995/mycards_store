@@ -3,7 +3,7 @@
 ## docker 运行
 
 ```bash
-docker run -it --rm -e db.init="true" -p 8080:8080 1327605995/mycard-store:1.0
+docker run -it --rm -e DB_INIT="true" -p 8080:8080 1327605995/mycard-store:1.0
 ```
 
 | 环境变量    | 默认值    | 描述                           |

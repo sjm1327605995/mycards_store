@@ -20,7 +20,6 @@ docker run -it --rm -e DB_INIT="true" -p 8080:8080 1327605995/mycard-store:1.0
 docker run --name postgres -p 5432:5432 -e POSTGRES_PASSWORD=postgres  -e TZ=PRC -v pgdata:/var/lib/postgresql/data --restart=always -d postgres:12
 ```
 # 我的卡组
-## Version: null
 
 
 ### /api/getDesksById

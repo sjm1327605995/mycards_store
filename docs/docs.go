@@ -107,8 +107,8 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "userId",
-                        "name": "data",
+                        "description": "用户id",
+                        "name": "userId",
                         "in": "query",
                         "required": true
                     }
@@ -127,7 +127,7 @@ const docTemplate = `{
                                         "data": {
                                             "type": "array",
                                             "items": {
-                                                "$ref": "#/definitions/models.Decks"
+                                                "$ref": "#/definitions/models.DecksNames"
                                             }
                                         }
                                     }
@@ -207,8 +207,8 @@ const docTemplate = `{
         "/api/relay/get": {
             "get": {
                 "description": "通过录像id获取录像文件",
-                "consumes": [
-                    "multipart/form-data"
+                "produces": [
+                    "application/octet-stream"
                 ],
                 "tags": [
                     "录像"
@@ -216,72 +216,14 @@ const docTemplate = `{
                 "summary": "获取录像",
                 "parameters": [
                     {
-                        "type": "file",
-                        "description": "file",
-                        "name": "file",
-                        "in": "formData",
-                        "required": true
-                    },
-                    {
                         "type": "string",
-                        "description": "录像名",
-                        "name": "name",
-                        "in": "formData",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "用戶id",
-                        "name": "userId",
-                        "in": "formData",
+                        "description": "录像id",
+                        "name": "id",
+                        "in": "query",
                         "required": true
                     }
                 ],
                 "responses": {}
-            },
-            "post": {
-                "description": "上传录像",
-                "consumes": [
-                    "multipart/form-data"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "录像"
-                ],
-                "summary": "上传录像",
-                "parameters": [
-                    {
-                        "type": "file",
-                        "description": "file",
-                        "name": "replay",
-                        "in": "formData",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "录像名",
-                        "name": "name",
-                        "in": "formData",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "用戶id",
-                        "name": "userId",
-                        "in": "formData",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/resp.SuccessResp"
-                        }
-                    }
-                }
             }
         },
         "/api/relay/list": {
@@ -330,6 +272,52 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/api/relay/upload": {
+            "post": {
+                "description": "上传录像",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "录像"
+                ],
+                "summary": "上传录像",
+                "parameters": [
+                    {
+                        "type": "file",
+                        "description": "file",
+                        "name": "replay",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "录像名",
+                        "name": "name",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "用戶id",
+                        "name": "userId",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/resp.SuccessResp"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -360,26 +348,49 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "cards": {
-                    "$ref": "#/definitions/models.Cards"
+                    "description": "卡组卡牌内容",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/models.Cards"
+                        }
+                    ]
                 },
                 "createdAt": {
+                    "description": "创建时间",
                     "type": "string"
                 },
                 "id": {
+                    "description": "卡组id （这里数据库不采用主键自增，使用雪花算法产生不重复的64位主键。前端使用string传输避免精度丢失问题）",
                     "type": "string",
                     "example": "0"
                 },
                 "lastUseAt": {
+                    "description": "最后使用时间 (这里还为做记录处理，待讨论)",
                     "type": "string"
                 },
                 "name": {
+                    "description": "牌组名称",
                     "type": "string"
                 },
                 "updatedAt": {
+                    "description": "更新时间",
                     "type": "string"
                 },
                 "userId": {
+                    "description": "用户id",
                     "type": "integer"
+                }
+            }
+        },
+        "models.DecksNames": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "example": "0"
+                },
+                "name": {
+                    "type": "string"
                 }
             }
         },
@@ -387,15 +398,19 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "createdAt": {
+                    "description": "创建时间",
                     "type": "string"
                 },
                 "id": {
+                    "description": "录像id（这里数据库不采用主键自增，使用雪花算法产生不重复的64位主键。前端使用string传输避免精度丢失问题）",
                     "type": "integer"
                 },
                 "name": {
+                    "description": "录像名称",
                     "type": "string"
                 },
                 "userId": {
+                    "description": "用户Id     (这里可能涉及一个对战玩家的信息，现在暂时未考虑)",
                     "type": "integer"
                 }
             }

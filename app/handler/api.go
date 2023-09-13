@@ -97,10 +97,10 @@ func DelDesksById(c *gin.Context) {
 // @Schemes
 // @Description 查询用户的卡组列表
 // @Tags 卡组
-// @Param data  query string true "userId"
+// @Param userId  query string true "用户id"
 // @Accept json
 // @Produce json
-// @Success 200 {object} resp.SuccessResp{data=[]models.Decks}
+// @Success 200 {object} resp.SuccessResp{data=[]models.DecksNames}
 // @Router /api/getDesksList [get]
 func GetDesksList(c *gin.Context) {
 	userId := c.Query("userId")
@@ -127,7 +127,7 @@ func GetDesksList(c *gin.Context) {
 // @Param userId formData string true "用戶id"
 // @Produce  json
 // @Success 200 {object} resp.SuccessResp
-// @Router /api/relay/get [post]
+// @Router /api/relay/upload [post]
 func ReplayUpload(c *gin.Context) {
 	fileHeader, err := c.FormFile("replay")
 	if err != nil {
@@ -158,10 +158,8 @@ func ReplayUpload(c *gin.Context) {
 // @Summary 获取录像
 // @Description  通过录像id获取录像文件
 // @Tags 录像
-// @Accept multipart/form-data
-// @Param file formData file true "file"
-// @Param name formData string true "录像名"
-// @Param userId formData string true "用戶id"
+// @Param id  query string true "录像id"
+// @Produce application/octet-stream
 // @Router /api/relay/get [get]
 func GetReplay(c *gin.Context) {
 	id := c.Query("id")

@@ -17,30 +17,50 @@ definitions:
   models.Decks:
     properties:
       cards:
-        $ref: '#/definitions/models.Cards'
+        allOf:
+        - $ref: '#/definitions/models.Cards'
+        description: 卡组卡牌内容
       createdAt:
+        description: 创建时间
         type: string
       id:
+        description: 卡组id （这里数据库不采用主键自增，使用雪花算法产生不重复的64位主键。前端使用string传输避免精度丢失问题）
         example: "0"
         type: string
       lastUseAt:
+        description: 最后使用时间 (这里还为做记录处理，待讨论)
+        type: string
+      name:
+        description: 牌组名称
+        type: string
+      updatedAt:
+        description: 更新时间
+        type: string
+      userId:
+        description: 用户id
+        type: integer
+    type: object
+  models.DecksNames:
+    properties:
+      id:
+        example: "0"
         type: string
       name:
         type: string
-      updatedAt:
-        type: string
-      userId:
-        type: integer
     type: object
   models.Replay:
     properties:
       createdAt:
+        description: 创建时间
         type: string
       id:
+        description: 录像id（这里数据库不采用主键自增，使用雪花算法产生不重复的64位主键。前端使用string传输避免精度丢失问题）
         type: integer
       name:
+        description: 录像名称
         type: string
       userId:
+        description: 用户Id     (这里可能涉及一个对战玩家的信息，现在暂时未考虑)
         type: integer
     type: object
   resp.SuccessResp:
@@ -105,9 +125,9 @@ paths:
       - application/json
       description: 查询用户的卡组列表
       parameters:
-      - description: userId
+      - description: 用户id
         in: query
-        name: data
+        name: userId
         required: true
         type: string
       produces:
@@ -121,7 +141,7 @@ paths:
             - properties:
                 data:
                   items:
-                    $ref: '#/definitions/models.Decks'
+                    $ref: '#/definitions/models.DecksNames'
                   type: array
               type: object
       summary: 查询卡组列表
@@ -172,57 +192,17 @@ paths:
       - 录像
   /api/relay/get:
     get:
-      consumes:
-      - multipart/form-data
       description: 通过录像id获取录像文件
       parameters:
-      - description: file
-        in: formData
-        name: file
-        required: true
-        type: file
-      - description: 录像名
-        in: formData
-        name: name
-        required: true
-        type: string
-      - description: 用戶id
-        in: formData
-        name: userId
-        required: true
-        type: string
-      responses: {}
-      summary: 获取录像
-      tags:
-      - 录像
-    post:
-      consumes:
-      - multipart/form-data
-      description: 上传录像
-      parameters:
-      - description: file
-        in: formData
-        name: replay
-        required: true
-        type: file
-      - description: 录像名
-        in: formData
-        name: name
-        required: true
-        type: string
-      - description: 用戶id
-        in: formData
-        name: userId
+      - description: 录像id
+        in: query
+        name: id
         required: true
         type: string
       produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/resp.SuccessResp'
-      summary: 上传录像
+      - application/octet-stream
+      responses: {}
+      summary: 获取录像
       tags:
       - 录像
   /api/relay/list:
@@ -251,6 +231,37 @@ paths:
                   type: array
               type: object
       summary: 查询录像列表
+      tags:
+      - 录像
+  /api/relay/upload:
+    post:
+      consumes:
+      - multipart/form-data
+      description: 上传录像
+      parameters:
+      - description: file
+        in: formData
+        name: replay
+        required: true
+        type: file
+      - description: 录像名
+        in: formData
+        name: name
+        required: true
+        type: string
+      - description: 用戶id
+        in: formData
+        name: userId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/resp.SuccessResp'
+      summary: 上传录像
       tags:
       - 录像
 swagger: "2.0"

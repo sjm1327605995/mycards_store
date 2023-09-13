@@ -19,8 +19,8 @@ docker run -it --rm -e DB_INIT="true" -p 8080:8080 1327605995/mycard-store:1.0
 | API              | false  | swagger请求文档                  |
 | STORAGE_TYPE     | disk   | 本地磁盘存储 (s3 使用s3 api存储)       |
 | STORAGE_ACCESS   |        | s3 access_key                |
-| STORAGE_SECRET   |        | s3 secret_key                |
-| STORAGE_BUCKET   |        | s3 bucket_name               |
+| STORAGE_SECRiET  |        | s3 secret_key                |
+| STORAGE_BUCKE T  |        | s3 bucket_name               |
 | STORAGE_ENDPOINT |        | s3 endpoint地址                |
 
 ### postgres数据库运行

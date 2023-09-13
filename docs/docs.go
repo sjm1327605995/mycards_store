@@ -404,7 +404,8 @@ const docTemplate = `{
                 },
                 "id": {
                     "description": "录像id（这里数据库不采用主键自增，使用雪花算法产生不重复的64位主键。前端使用string传输避免精度丢失问题）",
-                    "type": "integer"
+                    "type": "string",
+                    "example": "0"
                 },
                 "name": {
                     "description": "录像名称",

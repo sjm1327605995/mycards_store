@@ -20,7 +20,6 @@ type StorageMedia interface {
 	Delete(path string) error
 }
 
-// STORAGE_ACCESS=wfIswdHUf1GJUXnWBS56;STORAGE_BUCKET=test;STORAGE_SECRET=b1Cf9FCugVkOY579KmodVIRZTEXp010IbSvzb8X7;STORAGE_TYPE=s3;STORAGE_ENDPOINT=http://localhost:9000
 func InitStorageMedia() {
 	storageType := viper.GetString("storage.type")
 	switch storageType {

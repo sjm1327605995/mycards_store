@@ -116,3 +116,111 @@ func GetDesksList(c *gin.Context) {
 	}
 	resp.Success(c, desks)
 }
+
+// ReplayUpload
+// @Summary 上传录像
+// @Description  上传录像
+// @Tags 录像
+// @Accept multipart/form-data
+// @Param replay formData file true "file"
+// @Param name formData string true "录像名"
+// @Param userId formData string true "用戶id"
+// @Produce  json
+// @Success 200 {object} resp.SuccessResp
+// @Router /api/relay/get [post]
+func ReplayUpload(c *gin.Context) {
+	fileHeader, err := c.FormFile("replay")
+	if err != nil {
+		resp.Fail(c, "录像为空")
+		return
+	}
+	f, err := fileHeader.Open()
+	if err != nil {
+		resp.Fail(c, "服务器异常")
+		return
+	}
+	defer f.Close()
+	userId, _ := c.GetPostForm("userId")
+	if userId == "" {
+		resp.Fail(c, "用户id未上传")
+		return
+	}
+	name, _ := c.GetPostForm("name")
+	err = service.ReplayService.PutReply(cast.ToInt64(userId), name, f)
+	if err != nil {
+		resp.Fail(c, err.Error())
+		return
+	}
+	resp.Success(c, "ok")
+}
+
+// GetReplay
+// @Summary 获取录像
+// @Description  通过录像id获取录像文件
+// @Tags 录像
+// @Accept multipart/form-data
+// @Param file formData file true "file"
+// @Param name formData string true "录像名"
+// @Param userId formData string true "用戶id"
+// @Router /api/relay/get [get]
+func GetReplay(c *gin.Context) {
+	id := c.Query("id")
+	if id == "" {
+		resp.Fail(c, "录像id缺失")
+		return
+	}
+	err := service.ReplayService.GetReply(id, c.Writer)
+	if err != nil {
+		resp.Fail(c, err.Error())
+		return
+	}
+	c.Header("Content-Type", "application/octet-stream")
+}
+
+// DelReplay
+// @Summary 删除录像
+// @Schemes
+// @Description 根据录像id，删除录像
+// @Tags 录像
+// @Param data  query string true "id"
+// @Accept json
+// @Produce json
+// @Success 200 {object} resp.SuccessResp "ok"
+// @Router /api/relay/del [delete]
+func DelReplay(c *gin.Context) {
+	id := c.Query("id")
+	if id == "" {
+		resp.Fail(c, "录像id缺失")
+		return
+	}
+	err := service.ReplayService.DeleteReply(id)
+	if err != nil {
+		resp.Fail(c, err.Error())
+		return
+	}
+	resp.Success(c, "ok")
+}
+
+// ReplayList
+// @Summary 查询录像列表
+// @Schemes
+// @Description 查询用户录像列表
+// @Tags 录像
+// @Param data  query string true "userId"
+// @Accept json
+// @Produce json
+// @Success 200 {object} resp.SuccessResp{data=[]models.Replay}
+// @Router /api/relay/list [get]
+func ReplayList(c *gin.Context) {
+	userId := c.Query("userId")
+	if userId == "" {
+		resp.Fail(c, "用户id确实")
+		return
+	}
+	list, total, err := service.ReplayService.ReplyList(cast.ToInt64(userId))
+	if err != nil {
+		resp.Fail(c, err.Error())
+		return
+	}
+	resp.SuccessTotal(c, list, total)
+}

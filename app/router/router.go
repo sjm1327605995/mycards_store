@@ -25,11 +25,13 @@ func Router() (r *gin.Engine) {
 		api.GET("getDesksList", handler.GetDesksList)
 		api.DELETE("delDesksById", handler.DelDesksById)
 
-		//replay:=api.Group("replay")
-		//{
-		//	replay.POST("upload",)
-		//	replay.GET()
-		//}
+		replay := api.Group("replay")
+		{
+			replay.POST("upload", handler.ReplayUpload)
+			replay.GET("get", handler.GetReplay)
+			replay.DELETE("del", handler.DelReplay)
+			replay.GET("list", handler.ReplayList)
+		}
 	}
 
 	return e

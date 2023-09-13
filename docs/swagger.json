@@ -160,6 +160,165 @@
                     }
                 }
             }
+        },
+        "/api/relay/del": {
+            "delete": {
+                "description": "根据录像id，删除录像",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "录像"
+                ],
+                "summary": "删除录像",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "id",
+                        "name": "data",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "schema": {
+                            "$ref": "#/definitions/resp.SuccessResp"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/relay/get": {
+            "get": {
+                "description": "通过录像id获取录像文件",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "tags": [
+                    "录像"
+                ],
+                "summary": "获取录像",
+                "parameters": [
+                    {
+                        "type": "file",
+                        "description": "file",
+                        "name": "file",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "录像名",
+                        "name": "name",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "用戶id",
+                        "name": "userId",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {}
+            },
+            "post": {
+                "description": "上传录像",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "录像"
+                ],
+                "summary": "上传录像",
+                "parameters": [
+                    {
+                        "type": "file",
+                        "description": "file",
+                        "name": "replay",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "录像名",
+                        "name": "name",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "用戶id",
+                        "name": "userId",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/resp.SuccessResp"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/relay/list": {
+            "get": {
+                "description": "查询用户录像列表",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "录像"
+                ],
+                "summary": "查询录像列表",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "userId",
+                        "name": "data",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/resp.SuccessResp"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/models.Replay"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -192,14 +351,40 @@
                 "cards": {
                     "$ref": "#/definitions/models.Cards"
                 },
+                "createdAt": {
+                    "type": "string"
+                },
                 "id": {
                     "type": "string",
                     "example": "0"
                 },
+                "lastUseAt": {
+                    "type": "string"
+                },
                 "name": {
                     "type": "string"
                 },
-                "user_id": {
+                "updatedAt": {
+                    "type": "string"
+                },
+                "userId": {
+                    "type": "integer"
+                }
+            }
+        },
+        "models.Replay": {
+            "type": "object",
+            "properties": {
+                "createdAt": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "userId": {
                     "type": "integer"
                 }
             }

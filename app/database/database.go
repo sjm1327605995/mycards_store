@@ -46,7 +46,7 @@ func InitDB() {
 	}
 
 	if viper.GetBool("db.init") {
-		_ = db.AutoMigrate(&models.Decks{})
+		_ = db.AutoMigrate(&models.Decks{}, &models.Replay{})
 	}
 }
 

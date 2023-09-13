@@ -18,12 +18,29 @@ definitions:
     properties:
       cards:
         $ref: '#/definitions/models.Cards'
+      createdAt:
+        type: string
       id:
         example: "0"
         type: string
+      lastUseAt:
+        type: string
       name:
         type: string
-      user_id:
+      updatedAt:
+        type: string
+      userId:
+        type: integer
+    type: object
+  models.Replay:
+    properties:
+      createdAt:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      userId:
         type: integer
     type: object
   resp.SuccessResp:
@@ -132,4 +149,108 @@ paths:
       summary: 保存卡组
       tags:
       - 卡组
+  /api/relay/del:
+    delete:
+      consumes:
+      - application/json
+      description: 根据录像id，删除录像
+      parameters:
+      - description: id
+        in: query
+        name: data
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: '#/definitions/resp.SuccessResp'
+      summary: 删除录像
+      tags:
+      - 录像
+  /api/relay/get:
+    get:
+      consumes:
+      - multipart/form-data
+      description: 通过录像id获取录像文件
+      parameters:
+      - description: file
+        in: formData
+        name: file
+        required: true
+        type: file
+      - description: 录像名
+        in: formData
+        name: name
+        required: true
+        type: string
+      - description: 用戶id
+        in: formData
+        name: userId
+        required: true
+        type: string
+      responses: {}
+      summary: 获取录像
+      tags:
+      - 录像
+    post:
+      consumes:
+      - multipart/form-data
+      description: 上传录像
+      parameters:
+      - description: file
+        in: formData
+        name: replay
+        required: true
+        type: file
+      - description: 录像名
+        in: formData
+        name: name
+        required: true
+        type: string
+      - description: 用戶id
+        in: formData
+        name: userId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/resp.SuccessResp'
+      summary: 上传录像
+      tags:
+      - 录像
+  /api/relay/list:
+    get:
+      consumes:
+      - application/json
+      description: 查询用户录像列表
+      parameters:
+      - description: userId
+        in: query
+        name: data
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/resp.SuccessResp'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/models.Replay'
+                  type: array
+              type: object
+      summary: 查询录像列表
+      tags:
+      - 录像
 swagger: "2.0"

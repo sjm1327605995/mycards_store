@@ -6,11 +6,24 @@ type SuccessResp struct {
 	Status int         `json:"status"`
 	Data   interface{} `json:"data"`
 }
+type SuccessRespTotal struct {
+	SuccessResp
+	Total int64 `json:"total"`
+}
 
 func Success(c *gin.Context, data interface{}) {
 	c.JSON(200, SuccessResp{
 		Status: 200,
 		Data:   data,
+	})
+}
+func SuccessTotal(c *gin.Context, list interface{}, total int64) {
+	c.JSON(200, SuccessRespTotal{
+		SuccessResp: SuccessResp{
+			Status: 200,
+			Data:   list,
+		},
+		Total: total,
 	})
 }
 

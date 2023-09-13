@@ -5,25 +5,37 @@
 ```bash
 docker run -it --rm -e DB_INIT="true" -p 8080:8080 1327605995/mycard-store:1.0
 ```
+## 环境变量配置信息
 
-| 环境变量    | 默认值    | 描述                           |
-|---------|--------|------------------------------|
-| DB_INIT | false  | 数据库表初始化true开启                |
-| DB_TYPE | sqlite | 数据库类型(postgres,mysql,sqlite) |
-| DB_NAME |        | 数据库表名                        |
-| DB_HOST |        | 数据库主机ip                      |
-| DB_USER |        | 数据库用户                        |
-| DB_PWD  |        | 数据库密码                        |
-| DB_PORT |        | 数据库端口                        |
-| API     | false  | swagger请求文档                  |
+| 环境变量             | 默认值    | 描述                           |
+|------------------|--------|------------------------------|
+| DB_INIT          | false  | 数据库表初始化true开启                |
+| DB_TYPE          | sqlite | 数据库类型(postgres,mysql,sqlite) |
+| DB_NAME          |        | 数据库表名                        |
+| DB_HOST          |        | 数据库主机ip                      |
+| DB_USER          |        | 数据库用户                        |
+| DB_PWD           |        | 数据库密码                        |
+| DB_PORT          |        | 数据库端口                        |
+| API              | false  | swagger请求文档                  |
+| STORAGE_TYPE     | disk   | 本地磁盘存储 (s3 使用s3 api存储)       |
+| STORAGE_ACCESS   |        | s3 access_key                |
+| STORAGE_SECRET   |        | s3 secret_key                |
+| STORAGE_BUCKET   |        | s3 bucket_name               |
+| STORAGE_ENDPOINT |        | s3 endpoint地址                |
+
 ### postgres数据库运行
+
 ```bash
 docker run --name postgres -p 5432:5432 -e POSTGRES_PASSWORD=postgres  -e TZ=PRC -v pgdata:/var/lib/postgresql/data --restart=always -d postgres:12
 ```
+
 # swagger文档
+
 添加API参数启动即可访问
 访问地址 http://localhost:8080/swagger/index.html
+
 ```bash
 docker run -it --rm -e DB_INIT="true" -e API="true" -p 8080:8080 1327605995/mycard-store:1.0
 ```
+
 ![img.png](./docs%2Fimg.png)

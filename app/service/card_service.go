@@ -30,11 +30,12 @@ func (service *Cards) GetDesksById(decksId uint64) (*models.Decks, error) {
 }
 
 func (service *Cards) PutDesk(decks *models.Decks) (err error) {
+	now := time.Now()
 	if decks.Id == 0 {
 		decks.Id = snow.GenID()
+		decks.CreatedAt = now
 	}
-	now := time.Now()
-	decks.CreatedAt, decks.UpdatedAt = now, now
+	decks.UpdatedAt = now
 	err = database.GetDB().Save(&decks).Error
 	if err != nil {
 		zap.S().Error(err)

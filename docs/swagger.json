@@ -21,7 +21,7 @@
                     {
                         "type": "string",
                         "description": "id",
-                        "name": "data",
+                        "name": "id",
                         "in": "query",
                         "required": true
                     }
@@ -53,7 +53,7 @@
                     {
                         "type": "string",
                         "description": "id",
-                        "name": "data",
+                        "name": "id",
                         "in": "query",
                         "required": true
                     }
@@ -178,7 +178,7 @@
                     {
                         "type": "string",
                         "description": "id",
-                        "name": "data",
+                        "name": "id",
                         "in": "query",
                         "required": true
                     }
@@ -232,7 +232,7 @@
                     {
                         "type": "string",
                         "description": "userId",
-                        "name": "data",
+                        "name": "userId",
                         "in": "query",
                         "required": true
                     }

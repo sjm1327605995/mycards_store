@@ -32,7 +32,7 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "id",
-                        "name": "data",
+                        "name": "id",
                         "in": "query",
                         "required": true
                     }
@@ -64,7 +64,7 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "id",
-                        "name": "data",
+                        "name": "id",
                         "in": "query",
                         "required": true
                     }
@@ -189,7 +189,7 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "id",
-                        "name": "data",
+                        "name": "id",
                         "in": "query",
                         "required": true
                     }
@@ -243,7 +243,7 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "userId",
-                        "name": "data",
+                        "name": "userId",
                         "in": "query",
                         "required": true
                     }

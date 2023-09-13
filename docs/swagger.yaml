@@ -80,7 +80,7 @@ paths:
       parameters:
       - description: id
         in: query
-        name: data
+        name: id
         required: true
         type: string
       produces:
@@ -101,7 +101,7 @@ paths:
       parameters:
       - description: id
         in: query
-        name: data
+        name: id
         required: true
         type: string
       produces:
@@ -177,7 +177,7 @@ paths:
       parameters:
       - description: id
         in: query
-        name: data
+        name: id
         required: true
         type: string
       produces:
@@ -213,7 +213,7 @@ paths:
       parameters:
       - description: userId
         in: query
-        name: data
+        name: userId
         required: true
         type: string
       produces:

@@ -47,7 +47,7 @@ func PutDesks(c *gin.Context) {
 // @Schemes
 // @Description 查询卡组id，获取卡组信息
 // @Tags 卡组
-// @Param data  query string true "id"
+// @Param id  query string true "id"
 // @Accept json
 // @Produce json
 // @Success 200 {object} resp.SuccessResp{data=models.Decks} "ok"
@@ -72,7 +72,7 @@ func GetDesksById(c *gin.Context) {
 // @Schemes
 // @Description 根据卡组id，删除卡组
 // @Tags 卡组
-// @Param data  query string true "id"
+// @Param id  query string true "id"
 // @Accept json
 // @Produce json
 // @Success 200 {object} resp.SuccessResp "ok"
@@ -180,7 +180,7 @@ func GetReplay(c *gin.Context) {
 // @Schemes
 // @Description 根据录像id，删除录像
 // @Tags 录像
-// @Param data  query string true "id"
+// @Param id  query string true "id"
 // @Accept json
 // @Produce json
 // @Success 200 {object} resp.SuccessResp "ok"
@@ -204,7 +204,7 @@ func DelReplay(c *gin.Context) {
 // @Schemes
 // @Description 查询用户录像列表
 // @Tags 录像
-// @Param data  query string true "userId"
+// @Param userId  query string true "userId"
 // @Accept json
 // @Produce json
 // @Success 200 {object} resp.SuccessResp{data=[]models.Replay}

@@ -126,6 +126,7 @@ paths:
       description: 查询用户的卡组列表
       parameters:
       - description: 用户id
+        example: "888787"
         in: query
         name: userId
         required: true
@@ -169,7 +170,7 @@ paths:
       summary: 保存卡组
       tags:
       - 卡组
-  /api/relay/del:
+  /api/replay/del:
     delete:
       consumes:
       - application/json
@@ -190,7 +191,7 @@ paths:
       summary: 删除录像
       tags:
       - 录像
-  /api/relay/get:
+  /api/replay/get:
     get:
       description: 通过录像id获取录像文件
       parameters:
@@ -205,7 +206,7 @@ paths:
       summary: 获取录像
       tags:
       - 录像
-  /api/relay/list:
+  /api/replay/list:
     get:
       consumes:
       - application/json
@@ -233,7 +234,7 @@ paths:
       summary: 查询录像列表
       tags:
       - 录像
-  /api/relay/upload:
+  /api/replay/upload:
     post:
       consumes:
       - multipart/form-data

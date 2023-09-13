@@ -107,6 +107,7 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "string",
+                        "example": "888787",
                         "description": "用户id",
                         "name": "userId",
                         "in": "query",
@@ -172,7 +173,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/relay/del": {
+        "/api/replay/del": {
             "delete": {
                 "description": "根据录像id，删除录像",
                 "consumes": [
@@ -204,7 +205,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/relay/get": {
+        "/api/replay/get": {
             "get": {
                 "description": "通过录像id获取录像文件",
                 "produces": [
@@ -226,7 +227,7 @@ const docTemplate = `{
                 "responses": {}
             }
         },
-        "/api/relay/list": {
+        "/api/replay/list": {
             "get": {
                 "description": "查询用户录像列表",
                 "consumes": [
@@ -273,7 +274,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/relay/upload": {
+        "/api/replay/upload": {
             "post": {
                 "description": "上传录像",
                 "consumes": [

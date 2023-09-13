@@ -97,7 +97,7 @@ func DelDesksById(c *gin.Context) {
 // @Schemes
 // @Description 查询用户的卡组列表
 // @Tags 卡组
-// @Param userId  query string true "用户id"
+// @Param userId  query string true "用户id"   example(888787)
 // @Accept json
 // @Produce json
 // @Success 200 {object} resp.SuccessResp{data=[]models.DecksNames}
@@ -127,7 +127,7 @@ func GetDesksList(c *gin.Context) {
 // @Param userId formData string true "用戶id"
 // @Produce  json
 // @Success 200 {object} resp.SuccessResp
-// @Router /api/relay/upload [post]
+// @Router /api/replay/upload [post]
 func ReplayUpload(c *gin.Context) {
 	fileHeader, err := c.FormFile("replay")
 	if err != nil {
@@ -160,7 +160,7 @@ func ReplayUpload(c *gin.Context) {
 // @Tags 录像
 // @Param id  query string true "录像id"
 // @Produce application/octet-stream
-// @Router /api/relay/get [get]
+// @Router /api/replay/get [get]
 func GetReplay(c *gin.Context) {
 	id := c.Query("id")
 	if id == "" {
@@ -184,7 +184,7 @@ func GetReplay(c *gin.Context) {
 // @Accept json
 // @Produce json
 // @Success 200 {object} resp.SuccessResp "ok"
-// @Router /api/relay/del [delete]
+// @Router /api/replay/del [delete]
 func DelReplay(c *gin.Context) {
 	id := c.Query("id")
 	if id == "" {
@@ -208,7 +208,7 @@ func DelReplay(c *gin.Context) {
 // @Accept json
 // @Produce json
 // @Success 200 {object} resp.SuccessResp{data=[]models.Replay}
-// @Router /api/relay/list [get]
+// @Router /api/replay/list [get]
 func ReplayList(c *gin.Context) {
 	userId := c.Query("userId")
 	if userId == "" {

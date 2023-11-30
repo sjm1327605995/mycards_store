@@ -1,0 +1,14 @@
+inputSet:
+  name: Build_sjm1327605995_mycards_store_1701337106771-pr-trigger-input-set
+  identifier: Build_sjm1327605995_mycards_store_1701337106771prtriggerinputset
+  orgIdentifier: default
+  projectIdentifier: default_project
+  pipeline:
+    identifier: Build_sjm1327605995_mycards_store_1701337106771
+    properties:
+      ci:
+        codebase:
+          build:
+            type: PR
+            spec:
+              number: <+trigger.prNumber>

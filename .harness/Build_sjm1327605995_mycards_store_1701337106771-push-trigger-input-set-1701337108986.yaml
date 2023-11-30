@@ -1,0 +1,14 @@
+inputSet:
+  name: Build_sjm1327605995_mycards_store_1701337106771-push-trigger-input-set
+  identifier: Build_sjm1327605995_mycards_store_1701337106771pushtriggerinputset
+  orgIdentifier: default
+  projectIdentifier: default_project
+  pipeline:
+    identifier: Build_sjm1327605995_mycards_store_1701337106771
+    properties:
+      ci:
+        codebase:
+          build:
+            type: branch
+            spec:
+              branch: <+trigger.branch>

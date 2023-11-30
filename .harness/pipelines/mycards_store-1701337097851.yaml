@@ -1,0 +1,51 @@
+pipeline:
+  identifier: Build_sjm1327605995_mycards_store_1701337106771
+  name: Build mycards_store
+  orgIdentifier: default
+  projectIdentifier: default_project
+  properties:
+    ci:
+      codebase:
+        build: <+input>
+        connectorRef: account.Github_OAuth_1701337080817
+        repoName: sjm1327605995/mycards_store
+  stages:
+    - stage:
+        identifier: build
+        name: build
+        spec:
+          cloneCodebase: true
+          execution:
+            steps:
+              - step:
+                  identifier: gobuild
+                  name: go_build
+                  spec:
+                    command: go build
+                  timeout: ""
+                  type: Run
+              - step:
+                  identifier: gotest
+                  name: go_test
+                  spec:
+                    command: go test -v ./...
+                  timeout: ""
+                  type: Run
+              - step:
+                  identifier: dockerbuild
+                  name: docker_build
+                  spec:
+                    image: plugins/docker
+                    settings:
+                      dry_run: "true"
+                      repo: hello/world
+                      tags: latest
+                  timeout: ""
+                  type: Plugin
+          platform:
+            arch: Amd64
+            os: Linux
+          runtime:
+            spec: {}
+            type: Cloud
+        type: CI
